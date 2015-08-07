@@ -1,3 +1,5 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="com.muktalabs.em.model.ExpenseInventory"%>
 <%@page import="com.muktalabs.em.model.User"%>
 <%@page import="org.springframework.beans.factory.annotation.Autowired"%>
 <%@page import="org.springframework.web.context.support.SpringBeanAutowiringSupport"%>
@@ -21,12 +23,21 @@
 %>
 <%
 	List<ExpenseType> expenseTypes = expenseTypeController.getAllExpenseType(0, 20, session);
-	System.out.println("blah blah blah");	
+	System.out.println(" In expense inventory create jsp. ");	
 	User user=(User)session.getAttribute("loggedinuser");
 	String uid=user.getUserId();
 	System.out.println("user :   "+user.getUserId() + "   value:   " + uid);
 	String cid=user.getCompanyId();
 	System.out.println("company :  "+user.getCompanyId() + "   value:   " + cid);
+	
+	ExpenseInventory inventory = null;
+	String txDateValue = "";
+	SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+	if(request.getAttribute("expenseInventoryData")!=null){
+		inventory =(ExpenseInventory) request.getAttribute("expenseInventoryData");
+		txDateValue = sdf.format(inventory.getTransactionDate());
+		System.out.println("  txDateValue : "+ txDateValue);
+	}
 %>
 
 
@@ -80,7 +91,7 @@
    						<label for="date" class="col-sm-3 control-label">Date</label>
 							<div class="col-sm-9">
 								<input type="text" class="form-control" id="transactionDate"
-									name="transactionDate" placeholder="transactionDate" value="${expenseInventoryData.transactionDate}">
+									name="transactionDate" placeholder="transactionDate" value="<%=txDateValue%>">
 							</div>
     				</div>
 					

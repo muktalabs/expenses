@@ -34,6 +34,10 @@
 	List<Company> companies = companyController.getAllCompanys(0, 20, session);
 %>
 <div>
+<div>
+<h3>"${message}"</h3>
+</div>
+
 <form action="/em/ws/company/editordelete" method="post">
 <table>
 <thead>

@@ -75,10 +75,12 @@
 </tr>
 </thead>
 <tbody>
-<% for(ExpenseInventory expenseInventory : expense_inv) { %>
+<% for(ExpenseInventory expenseInventory : expense_inv) {
+			System.out.print("inventory id : "+expenseInventory.getInventoryId());
+	%>
 	<tr>
-		<td><input type="checkbox" value="<%=expenseInventory.getInventoryId()%>" name="InventoryId" id="expenseInventoryId"></td>
-		<td> <label><%= hm.get(expenseInventory.getExpenseTypeId()) %></label></td>
+		<td><input type="checkbox" value="<%=expenseInventory.getInventoryId()%>" name="inventoryId" id="inventoryId"/></td>
+		<td> <label><%=hm.get(expenseInventory.getExpenseTypeId())%></label></td>
 		<td> <label><%=expenseInventory.getCost()%></label></td>
 		<td>  <label><%=expenseInventory.getPaymentMode()%></label></td>
 		<td>  <label><%=expenseInventory.getDescription()%></label></td>

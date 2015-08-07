@@ -43,16 +43,17 @@ public class ExpenseInventoryServiceImpl implements ExpenseInventoryService {
     
     }
 
-    public ExpenseInventory getById(String id, User user) {
-        return expenseInventoryDao.getById(id, user);
+    public ExpenseInventory getById(String inventoryId, User user) {
+    	logger.info("get by id method in ServiceImpl");
+    	return expenseInventoryDao.getById(inventoryId, user);
     }
     
     public List<ExpenseInventory> listByCompanyId(String companyId, User user){
         return expenseInventoryDao.listByCompanyId(companyId, user);
     }
 
-    public String delete(String id, User user) {
-        return expenseInventoryDao.delete(id, user);
+    public String delete(String inventoryId, User user) {
+        return expenseInventoryDao.delete(inventoryId, user);
     }
 
     public List<ExpenseInventory> list(int startIndex, int pageSize, User user) {

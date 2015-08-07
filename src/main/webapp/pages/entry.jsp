@@ -62,57 +62,7 @@
            
        </div>
 
-       <div class="row " style="padding-top: 50px;">
-           <div class="col-lg-4 col-md-4 col-sm-4 ">
-
-               <div class="portfolio-item wow rotateIn animated" data-wow-delay="0.7s">
-
-
-                   <img src="${baseURL}/img/portfolio/maintenance.jpeg" class="img-responsive " alt="" />
-                   <div class="overlay">
-                      <p>
-                           
-                           MAINTENANCE
-                       </p>
-                       <a class="preview  " title="Image Title Here" href="img/portfolio/maintenance.jpeg"><i class="fa fa-search-plus fa-5x"></i></a>
-
-                   </div>
-               </div>
-           </div>
-           <div class="col-lg-4 col-md-4 col-sm-4 ">
-
-               <div class="portfolio-item wow rotateIn animated" data-wow-delay="0.8s">
-
-
-                   <img src="${baseURL}/img/portfolio/acc.jpg" class="img-responsive " alt="" />
-                   <div class="overlay">
-                       <p>
-                           ACCOUNTS
-                       </p>
-                       <a class="preview " title="Image Title Here" href="img/portfolio/acc.jpg"><i class="fa fa-search-plus fa-5x"></i></a>
-
-                   </div>
-               </div>
-           </div>
-           
-                           <div class="col-lg-4 col-md-4 col-sm-4 ">
-
-               <div class="portfolio-item wow rotateIn animated" data-wow-delay="0.9s">
-
-
-                   <img src="${baseURL}/img/portfolio/operations.jpeg" class="img-responsive " alt="" />
-                    <div class="overlay">
-                      <p>
-                        OPERATIONS
-                        </p>
-                        <a class="preview " title="Image Title Here" href="img/portfolio/operations.jpeg"><i class="fa fa-search-plus fa-5x"></i></a>
-
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
+       
     </div>
 </div>
 <!--./ IT/PORTFOLIO SECTION END -->

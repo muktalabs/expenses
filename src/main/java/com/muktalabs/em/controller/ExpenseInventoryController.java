@@ -1,5 +1,6 @@
 package com.muktalabs.em.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,8 +10,11 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -123,36 +127,46 @@ public class ExpenseInventoryController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String createExpenseInventory(@ModelAttribute ExpenseInventory expenseinventory ,BindingResult result,
+    public ModelAndView createExpenseInventory(@ModelAttribute ExpenseInventory expenseinventory ,BindingResult result,
             HttpSession session) {
 
-        String response = ResponseCode.SUCCESS;
-        logger.info("Start createExpenseInventory.");
+        
+        logger.info("Start createExpenseInventory: "+expenseinventory);
+        ModelAndView response = new ModelAndView("expense_inventory_create");
         boolean check = LoginCheckUtil.loginCheck();
        if(check){
         if (result.hasErrors()) {
             logger.info("Data binding errors: " + result);
-            response = ResponseCode.ERROR + "Data binding errors";
+            response = new ModelAndView("expense_inventory_create");
+            response.addObject("message", "Data binding errors: " + result);
+            response.addObject("expenseInventoryData", expenseinventory);
+            
         } else {
             try {
            	if(expenseinventory.getInventoryId()!= null && expenseinventory.getInventoryId()!= ""){
            		expenseInventoryService.update(expenseinventory);
-           //		expenseInventoryService.update(description);
+           		response = new ModelAndView("expense_inventory_getlist");
             	    
             } else {
             		expenseInventoryService.save(expenseinventory);
+            		response = new ModelAndView("expense_inventory_getlist");
+            		
             		//expenseInventoryService.save(description);
             	    
             	}
             } catch (Exception ex) {
                 logger.log(Level.WARNING, "Exception while saving expensetype: ", ex);
-                response = ResponseCode.ERROR + ex.getMessage();
+                response = new ModelAndView("expense_inventory_create");
+                response.addObject("message","Exception while saving expensetype: ");
+                response.addObject("expenseInventoryData", expenseinventory);
+                
             }
         }
         return response;
         }
        else {
-        return "nouser";
+    	   response = new ModelAndView("signin");
+    	   return response;
     }
     }
 
@@ -200,8 +214,8 @@ public class ExpenseInventoryController {
     		@RequestParam String operation, 
     		HttpSession session) {
 
-        logger.info("Start editOrDeleteExpenseInventory. InventoryId="+inventoryId+", operation="+operation);
-        ModelAndView response = new ModelAndView("expense_inventory_list");;
+        logger.info("Start editOrDeleteExpenseInventory. inventoryId="+inventoryId+", operation="+operation);
+        ModelAndView response = new ModelAndView("expense_inventory_getlist");
         boolean check = LoginCheckUtil.loginCheck();
         User user = (User) session.getAttribute("logged_in_user");
         try {
@@ -209,6 +223,7 @@ public class ExpenseInventoryController {
         		ExpenseInventory data = expenseInventoryService.getById(inventoryId, user);
         		response = new ModelAndView("expense_inventory_create");
         		response.addObject("expenseInventoryData", data);
+        		
         	} else if ("delete".equals(operation)){
         		expenseInventoryService.delete(inventoryId, user);
         		response.addObject("message", ResponseCode.SUCCESS+" 1 ExpenseInventory deleted.");

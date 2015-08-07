@@ -20,9 +20,9 @@ public interface ExpenseInventoryService {
 
     public List<ExpenseInventory> listByDates( Date fromDate, Date toDate, User user );
     
-    public ExpenseInventory getById(String leaveId, User user);
+    public ExpenseInventory getById(String inventoryId, User user);
 
-    public String delete(String leaveId, User user);
+    public String delete(String inventoryId, User user);
     
     
 

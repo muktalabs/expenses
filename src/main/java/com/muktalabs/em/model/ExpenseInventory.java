@@ -128,4 +128,11 @@ public class ExpenseInventory extends Model implements Serializable {
 		this.voucherNo = voucherNo;
 	}
 
+	@Override
+	public String toString() {
+		return "ExpenseInventory [inventoryId=" + inventoryId + ", companyId=" + companyId + ", cost=" + cost + ", description="
+				+ description + ", expenseTypeId=" + expenseTypeId + ", paymentMode=" + paymentMode + ", transactionDate="
+				+ transactionDate + ", transactionType=" + transactionType + ", userId=" + userId + ", voucherNo=" + voucherNo + "]";
+	}
+
 }

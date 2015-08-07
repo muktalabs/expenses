@@ -1,5 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:set var="req" value="${pageContext.request}" />
+<c:set var="baseURL" value="${req.scheme}://${req.serverName}:${req.serverPort}${req.contextPath}" />
+
 <head>
 	    <link rel='stylesheet prefetch' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css'>
 
@@ -14,17 +19,17 @@
         <![endif]-->
     <title>Expense Management</title>
     <!--  Bootstrap Style -->
-    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link href="${baseURL}/css/bootstrap.css" rel="stylesheet" />
     <!--  Font-Awesome Style -->
-    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link href="${baseURL}/css/font-awesome.min.css" rel="stylesheet" />
     <!--  Animation Style -->
-    <link href="css/animate.css" rel="stylesheet" />
+    <link href="${baseURL}/css/animate.css" rel="stylesheet" />
     <!--  Pretty Photo Style -->
-    <link href="css/prettyPhoto.css" rel="stylesheet" />
+    <link href="${baseURL}/css/prettyPhoto.css" rel="stylesheet" />
     <!--  Google Font Style -->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <link href='${baseURL}/http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <!--  Custom Style -->
-    <link href="css/style.css" rel="stylesheet" />
+    <link href="${baseURL}/css/style.css" rel="stylesheet" />
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -91,8 +96,6 @@
                         <span>
                             <i class="fa fa-lightbulb-o" ></i>Manage company expenses
                         </span>
-                        
-                        
                     </div>
                     <div class="col-lg-3 col-md-4">
                         <div class="div-trans text-center">
@@ -110,7 +113,7 @@
                                     <button type="submit" class="btn btn-success btn-block btn-lg">SIGN IN</button>
                                 </div>
                                 <div class="form-group">
-    								<a href="register.jsp">Register</a>  •  <a href="#">Forgot Password</a>
+    								<a href="${baseURL}/pages/user_register.jsp">Register</a>  
   								</div> 
                                 
                              </div>
@@ -118,12 +121,8 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
-
-
     </div>
     <!--./ HOME SECTION END -->
     <div id="footser-end">
@@ -134,18 +133,21 @@
         </div>
     </div>
       <!--./ FOOTER SECTION END -->
+    <script>
+    	
+    </script>
     <!--  Jquery Core Script -->
-    <script src="js/jquery-1.10.2.js"></script>
+    <script src="${baseURL}/js/jquery-1.10.2.js"></script>
     <!--  Core Bootstrap Script -->
-    <script src="js/bootstrap.js"></script>
+    <script src="${baseURL}/js/bootstrap.js"></script>
      <!--  WOW Script -->
-    <script src="js/wow.min.js"></script>
+    <script src="${baseURL}/js/wow.min.js"></script>
     <!--  Scrolling Script -->
-    <script src="js/jquery.easing.min.js"></script>
+    <script src="${baseURL}/js/jquery.easing.min.js"></script>
     <!--  PrettyPhoto Script -->
-    <script src="js/jquery.prettyPhoto.js"></script>
+    <script src="${baseURL}/js/jquery.prettyPhoto.js"></script>
     <!--  Custom Scripts -->
-    <script src="js/custom.js"></script>
+    <script src="${baseURL}/js/custom.js"></script>
    
 </body>
 </html>

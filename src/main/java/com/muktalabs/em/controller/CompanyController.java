@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -101,32 +102,39 @@ public class CompanyController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String createCompany(@ModelAttribute Company company, BindingResult result,
+    public ModelAndView createCompany(@ModelAttribute Company company, BindingResult result,
             HttpSession session) {
 
-        String response = ResponseCode.SUCCESS;
+    	ModelAndView response = new ModelAndView("company_create");
         logger.info("Start createCompany.");
         boolean check = LoginCheckUtil.loginCheck();
        if(check){
         if (result.hasErrors()) {
             logger.info("Data binding errors: " + result);
-            response = ResponseCode.ERROR + "Data binding errors";
+            response = new ModelAndView("company_create");
+            response.addObject("message", "Data binding errors: " + result);
+            response.addObject("companyData", company);
         } else {
             try {
             	if(company.getCompanyId()!= null && company.getCompanyId()!= ""){
             		companyService.update(company);
+            		response = new ModelAndView("company_list");
             	} else {
             		companyService.save(company);
+            		response = new ModelAndView("company_list");
             	}
             } catch (Exception ex) {
                 logger.log(Level.WARNING, "Exception while saving company: ", ex);
-                response = ResponseCode.ERROR + ex.getMessage();
+                response = new ModelAndView("company_create");
+                response.addObject("message","Exception while saving company: ");
+                response.addObject("companyData", company);
             }
         }
         return response;
         }
        else {
-        return "nouser";
+    	   response = new ModelAndView("signin");
+    	   return response;
     }
     }
 
@@ -188,6 +196,9 @@ public class CompanyController {
         		response.addObject("message", ResponseCode.SUCCESS+" 1 Company deleted.");
         	}
             
+        } catch (DataIntegrityViolationException ex) {
+            logger.log(Level.WARNING, "Exception while deleting company: ", ex);
+            response.addObject("message", ResponseCode.ERROR + "Data exists for company cannot delete it.");
         } catch (Exception ex) {
             logger.log(Level.WARNING, "Exception while deleting company: ", ex);
             response.addObject("message", ResponseCode.ERROR + ex.getMessage());

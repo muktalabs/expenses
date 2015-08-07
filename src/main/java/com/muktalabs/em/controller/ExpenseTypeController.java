@@ -101,36 +101,42 @@ public class ExpenseTypeController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String createExpenseType(@ModelAttribute ExpenseType expensetype ,BindingResult result,
+    public ModelAndView createExpenseType(@ModelAttribute ExpenseType expensetype ,BindingResult result,
             HttpSession session) {
 
-        String response = ResponseCode.SUCCESS;
+    	ModelAndView response = new ModelAndView("expense_type");
         logger.info("Start createExpenseType.");
         boolean check = LoginCheckUtil.loginCheck();
        if(check){
         if (result.hasErrors()) {
             logger.info("Data binding errors: " + result);
-            response = ResponseCode.ERROR + "Data binding errors";
+            response = new ModelAndView("expense_type");
+            response.addObject("message", "Data binding errors: " + result);
+            response.addObject("expenseTypeData", expensetype);
         } else {
             try {
            	if(expensetype.getExpenseTypeId()!= null && expensetype.getExpenseTypeId()!= ""){
            		expenseTypeService.update(expensetype);
-           //		expenseTypeService.update(description);
+           		response = new ModelAndView("expensetype_list");
             	    
             } else {
             		expenseTypeService.save(expensetype);
-            		//expenseTypeService.save(description);
+            		response = new ModelAndView("expensetype_list");
             	    
             	}
             } catch (Exception ex) {
                 logger.log(Level.WARNING, "Exception while saving expensetype: ", ex);
-                response = ResponseCode.ERROR + ex.getMessage();
+                response = new ModelAndView("expense_type");
+                response.addObject("message","Exception while saving expensetype: ");
+                response.addObject("expenseTypeData", expensetype);
+                
             }
         }
         return response;
         }
        else {
-        return "nouser";
+    	   response = new ModelAndView("signin");
+    	   return response;
     }
     }
 
@@ -151,14 +157,13 @@ public class ExpenseTypeController {
                 }
                 User user = (User) session.getAttribute("logged_in_user");
                 ExpenseType existing = expenseTypeService.getById(expensetype.getExpenseTypeId(), user);
-               // existing.update(expensetype);
+               
                
                 if (user != null) {
                    // existing.setModifiedBy(user.getUserId());
                     
                 }
-                //existing.setModifiedOn(new Date());
-
+                
                 expenseTypeService.update(existing);
             } catch (Exception ex) {
                 logger.log(Level.WARNING, "Exception while updating expensetype: ", ex);
@@ -195,6 +200,7 @@ public class ExpenseTypeController {
         } catch (Exception ex) {
             logger.log(Level.WARNING, "Exception while deleting expensetype: ", ex);
             response.addObject("message", ResponseCode.ERROR + ex.getMessage());
+            
         }
         return response;
        

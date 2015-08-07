@@ -19,7 +19,7 @@ public interface ExpenseInventoryDao {
 	
 	public List<ExpenseInventory> listByDates( Date fromDate, Date toDate, User user );
 
-	public ExpenseInventory getById(String id, User user);
+	public ExpenseInventory getById(String inventoryId, User user);
 
-	public String delete(String id, User user);
+	public String delete(String inventoryId, User user);
 }

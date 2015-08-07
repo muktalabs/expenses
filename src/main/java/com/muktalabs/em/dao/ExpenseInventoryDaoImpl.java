@@ -90,17 +90,19 @@ public class ExpenseInventoryDaoImpl extends HibernateDaoSupport implements Expe
         return expenseInventoryList;
     }
 
-    public ExpenseInventory getById(String id, User user) {
+    public ExpenseInventory getById(String inventoryId, User user) {
 
-        ExpenseInventory expenseInventory = getHibernateTemplate().get(ExpenseInventory.class, id);
+        ExpenseInventory expenseInventory = getHibernateTemplate().get(ExpenseInventory.class,inventoryId);
+        logger.info("get by id method DaoImpl");
         return expenseInventory;
     }
 
-    public String delete(String id, User user) {
+    public String delete(String inventoryId, User user) {
 
-        ExpenseInventory expenseInventory = this.getById(id, user);
+        ExpenseInventory expenseInventory = this.getById(inventoryId, user);
         getHibernateTemplate().delete(expenseInventory);
-        return id;
+        logger.info("Delete method DaoImpl" + inventoryId);
+        return inventoryId;
     }
 
 }

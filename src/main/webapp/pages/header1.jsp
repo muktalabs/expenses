@@ -63,28 +63,12 @@
                     
                     
                      <li >
-                        <a href="${baseURL}/pages/signin.jsp">Home 
+                        <a href="${baseURL}/index.jsp">Back 
                         </a>
                     </li>
                     
                     
-                    <li >
-                        <a href="${baseURL}/pages/company_list.jsp">Company List 
-                        </a>
-                    </li>
-                    <li >
-                        <a href="${baseURL}/pages/expensetype_list.jsp">Expense Type List
-                        </a>
-                    </li>
-                    <li >
-                        <a href="${baseURL}/pages/expense_inventory_getlist.jsp">Expense Inventory List
-                        </a>
-                    </li>
                     
-                    <li >
-                        <a href="${baseURL}/pages/index.jsp">Signout 
-                        </a>
-                    </li>
                 </ul>
  				
             </div>
